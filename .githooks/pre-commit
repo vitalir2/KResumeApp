@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Ktlint on staged files
+if [ -f tools/formatter/ktlint ]; then
+  bash tools/formatter/pre-commit || { echo "ktlint failed"; exit 1; }
+fi
+
+# Detekt (binary may not exist yet)
+if [ -f tools/linter/detekt/detekt-cli.jar ]; then
+  bash tools/linter/detekt/check.sh || { echo "detekt failed"; exit 1; }
+fi
+
+# Konsist (module may not exist yet)
+if [ -f tools/linter/konsist/build.gradle.kts ]; then
+  ./gradlew :tools:linter:konsist:test || { echo "konsist failed"; exit 1; }
+fi

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+COMMIT_MSG_FILE="$1"
+
+# Skip validation for merge commits and reverts
+if head -1 "$COMMIT_MSG_FILE" | grep -qE '^(Merge branch|Revert )'; then
+  exit 0
+fi
+
+COMMIT_MSG="$(cat "$COMMIT_MSG_FILE")"
+
+# Reject WIP, fixup!, squash!
+if echo "$COMMIT_MSG" | grep -qiE '^(WIP|fixup!|squash!)'; then
+  echo "ERROR: Commit message starts with WIP/fixup!/squash! — not allowed." >&2
+  exit 1
+fi
+
+# Conventional commit format: type(scope?): subject
+# Allowed types: feat, fix, chore, docs, refactor, revert
+if ! echo "$COMMIT_MSG" | grep -qE '^(feat|fix|chore|docs|refactor|revert)(\([a-z0-9._-]+\))?: .{1,70}$'; then
+  echo "ERROR: Commit message must follow conventional commits format." >&2
+  echo "  Format: type(scope?): subject" >&2
+  echo "  Allowed types: feat, fix, chore, docs, refactor, revert" >&2
+  echo "  Subject max 70 characters" >&2
+  echo "  Example: feat(cli): add --output flag to render command" >&2
+  exit 1
+fi

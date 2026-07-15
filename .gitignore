@@ -1,0 +1,22 @@
+*.iml
+.gradle
+/.idea/
+build/
+local.properties
+.DS_Store
+.captures
+.externalNativeBuild
+.cxx
+
+# Downloaded binaries
+tools/formatter/ktlint
+tools/linter/detekt/detekt-cli.jar
+
+# Temp files
+.ai/tmp/
+.kotlin/
+
+# OS
+*.swp
+__pycache__/
+*.pyc

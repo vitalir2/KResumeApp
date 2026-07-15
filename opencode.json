@@ -1,0 +1,11 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "agent": {
+        "build": {
+            "prompt": "'Done' + 1-line summary. Never print decision summary tables or multi-line output unless requested.\nUse .ai/tmp/ for ALL temp files.\nchanged lines only, file:line refs. Never full files.\nScan ALL changes before first edit. One call per file.\nStage specific files. Never --no-verify.\nVerify unfamiliar types/methods via web search or grep before using.\nWeb search current library version's docs before changing imports.\nStop if any not found."
+        },
+        "plan": {
+            "prompt": "'Done' + 1-line summary. Never print decision summary tables or multi-line output unless requested.\nUse .ai/tmp/ for ALL temp files.\nchanged lines only, file:line refs. Never full files.\nScan ALL changes before first edit. One call per file.\nStage specific files. Never --no-verify.\nVerify unfamiliar types/methods via web search or grep before using.\nWeb search current library version's docs before changing imports.\nStop if any not found."
+        }
+    }
+}
