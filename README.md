@@ -1,6 +1,18 @@
-# kmp-general
+# KResume
 
-KMP project template for any cross-platform Kotlin project: mobile apps, desktop apps, shared libraries, servers, games, CLI tools, etc.
+I'm building a Developer-First Resume IDE — a desktop application for
+developers who treat their CV as code. Still in progress, but the end
+product will combine a type-safe Kotlin DSL with a live preview, all
+powered by Compose Multiplatform. See [docs/idea.md](docs/idea.md) for
+the full feature set and vision.
+
+## Features (Goal)
+
+- **Kotlin DSL** — type-safe, expressive DSL for resume data
+- **Live preview** — instant feedback as you write
+- **Import / Export** — multiple formats (JSON, Markdown, HTML, PDF)
+- **Private & offline** — all processing on your machine
+- **AI assistant** — optional, for rewording and optimisation
 
 ## Getting Started
 
@@ -10,38 +22,20 @@ KMP project template for any cross-platform Kotlin project: mobile apps, desktop
 ./gradlew test                # Run shared unit tests
 ```
 
-## Targets
-
-| Target | Source Set | Entry Point |
-|--------|-----------|-------------|
-| Android | `androidMain/` | `MainActivity.kt` |
-| iOS | `iosMain/` | `MainViewController.kt` |
-| JVM/Desktop | `jvmMain/` | `Main.kt` (`fun main()`) |
-
 ## Architecture
 
 ```
-commonMain/          Shared UI + domain (Compose Multiplatform)
-jvmMain/             Desktop entry point
+commonMain/          DSL core, resume model, preview engine
+jvmMain/             Desktop entry point (JVM)
 commonTest/          Cross-platform unit tests (kotest)
 ```
 
-## Key Decisions
+## Technology Stack
 
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| UI Framework | Compose Multiplatform | Shared UI across all platforms |
-| Serialization | kotlinx-serialization | KMP-native, compile-time safe |
-| Async | kotlinx-coroutines | KMP, structured concurrency |
-| Assertions | kotest matchers | Descriptive errors, no mock libs |
-| Platform abstraction | Interface in commonMain | Testable, explicit API surface |
-| DI | Manual constructor injection | No framework overhead |
-
-## Extending
-
-- **New screen**: add `@Composable` in `commonMain/`, wire platform entry point.
-- **New platform target**: add to `kotlin { }` block + source set + platform actuals.
-- **New `.ai/tools/` script**: create under `.opencode/skills/` with YAML frontmatter.
+| Layer | Technology |
+|-------|-----------|
+| Language | Kotlin |
+| UI Framework | Compose Multiplatform (Desktop) |
 
 ## More Docs
 
@@ -49,4 +43,4 @@ commonTest/          Cross-platform unit tests (kotest)
 |------|---------|
 | `.ai/docs/` | AI-optimized: code style, API guidelines, conventions |
 | `docs/` | Human-readable counterparts |
-| `README.md` per module | Purpose, type, public API for each module |
+| `docs/idea.md` | Full product vision and roadmap |

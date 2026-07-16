@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-echo "=== Setup: kmp-general ==="
+echo "=== Setup: kresume ==="
 
 # 1. Install ktlint
 echo "--- Installing ktlint ---"

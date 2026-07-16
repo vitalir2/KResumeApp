@@ -15,7 +15,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "kmp-general"
+rootProject.name = "kresume"
 
 include(":tools:linter:konsist")
 project(":tools:linter:konsist").projectDir = rootDir.resolve("tools/linter/konsist")

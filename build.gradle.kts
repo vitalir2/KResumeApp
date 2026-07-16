@@ -9,7 +9,7 @@ plugins {
 
 kotlin {
     android {
-        namespace = "me.vitalir.kmptemplate"
+        namespace = "me.vitalir.kresume"
         compileSdk = 37
         minSdk = 29
         androidResources.enable = true
@@ -54,7 +54,7 @@ kotlin {
 }
 
 android {
-    namespace = "me.vitalir.kmptemplate"
+    namespace = "me.vitalir.kresume"
     compileSdk = 37
     defaultConfig {
         minSdk = 29

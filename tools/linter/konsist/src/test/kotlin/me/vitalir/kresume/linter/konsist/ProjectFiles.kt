@@ -1,4 +1,4 @@
-package me.vitalir.kmptemplate.linter.konsist
+package me.vitalir.kresume.linter.konsist
 
 import com.lemonappdev.konsist.api.Konsist
 

@@ -1,4 +1,4 @@
-package me.vitalir.kmptemplate
+package me.vitalir.kresume
 
 /**
  * JVM platform name from system properties.

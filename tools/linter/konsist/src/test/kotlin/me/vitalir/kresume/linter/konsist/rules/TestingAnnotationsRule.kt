@@ -1,7 +1,7 @@
-package me.vitalir.kmptemplate.linter.konsist.rules
+package me.vitalir.kresume.linter.konsist.rules
 
-import me.vitalir.kmptemplate.linter.konsist.ProjectFiles
-import me.vitalir.kmptemplate.linter.konsist.assertions.prohibitExact
+import me.vitalir.kresume.linter.konsist.ProjectFiles
+import me.vitalir.kresume.linter.konsist.assertions.prohibitExact
 import kotlin.test.Test
 
 class TestingAnnotationsRule {

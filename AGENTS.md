@@ -53,6 +53,7 @@
 - `README.md` per module + `.ai.readme.md` (AI compact counterpart)
 - **Frontmatter required** — every `.md` needs `type: ai|human|both`
 - `type: both` also needs `synced_at: sha256:<hash>` of the human counterpart
+- **AI reading order**: prefer `.ai.readme.md` over `README.md`. Read `README.md` only when you need to update docs (to sync content). For understanding the project, reading conventions, or any AI task — read `.ai.readme.md` (compact counterpart).
 
 ## Build
 ```bash

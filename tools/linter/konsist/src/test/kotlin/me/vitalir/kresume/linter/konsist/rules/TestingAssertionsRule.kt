@@ -1,8 +1,8 @@
-package me.vitalir.kmptemplate.linter.konsist.rules
+package me.vitalir.kresume.linter.konsist.rules
 
-import me.vitalir.kmptemplate.linter.konsist.ProjectFiles
-import me.vitalir.kmptemplate.linter.konsist.assertions.prohibitPackage
-import me.vitalir.kmptemplate.linter.konsist.assertions.prohibitPackageExcept
+import me.vitalir.kresume.linter.konsist.ProjectFiles
+import me.vitalir.kresume.linter.konsist.assertions.prohibitPackage
+import me.vitalir.kresume.linter.konsist.assertions.prohibitPackageExcept
 import kotlin.test.Test
 
 class TestingAssertionsRule {

@@ -1,4 +1,4 @@
-package me.vitalir.kmptemplate
+package me.vitalir.kresume
 
 import io.kotest.matchers.string.shouldNotBeEmpty
 import kotlin.test.Test

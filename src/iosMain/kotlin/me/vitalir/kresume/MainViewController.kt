@@ -1,4 +1,4 @@
-package me.vitalir.kmptemplate
+package me.vitalir.kresume
 
 import androidx.compose.ui.window.ComposeUIViewController
 

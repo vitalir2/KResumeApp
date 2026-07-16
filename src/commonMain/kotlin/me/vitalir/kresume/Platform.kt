@@ -1,4 +1,4 @@
-package me.vitalir.kmptemplate
+package me.vitalir.kresume
 
 /**
  * Returns the human-readable name of the current platform.

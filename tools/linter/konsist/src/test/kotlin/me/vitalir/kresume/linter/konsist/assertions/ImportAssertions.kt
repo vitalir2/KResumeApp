@@ -1,4 +1,4 @@
-package me.vitalir.kmptemplate.linter.konsist.assertions
+package me.vitalir.kresume.linter.konsist.assertions
 
 import com.lemonappdev.konsist.api.container.KoScope
 import com.lemonappdev.konsist.api.verify.assertEmpty
