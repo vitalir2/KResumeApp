@@ -27,6 +27,8 @@
 - **System rules** — see `.ai/memory/system-rules.md`. Never duplicate here.
 
 ## Communication
+- **Language** — English only, unless user explicitly requests otherwise.
+- **ADR process** — see `history/adr/README.md` and `tools/adr/` scripts. Before coding, document decisions.
 - **Edit batching** — scan ALL changes before first edit. One call per file.
 - **Proactive escalation** — raise concerns. No silent replies.
 - **Batch questions** — ask all in one message.

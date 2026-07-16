@@ -112,11 +112,12 @@ Never write intermediate files. Expand at dump only.
 On "end the brainstorm" (or any variant):
 
 1. Expand compact log → full artifact
-2. Ensure dir: `mkdir -p docs/archive/brainstorms/`
+2. Ensure dir: `mkdir -p history/brainstorms/`
 3. Slug: lowercase, spaces→hyphens, strip `[^a-z0-9-]`
 4. If path exists → `-v2`, `-v3` suffix
-5. Save to `docs/archive/brainstorms/<slug>.md`
-6. Show in chat: TLDR + file path only. Offer "show full artifact? (y/n)"
+5. Save to `history/brainstorms/<slug>.md`
+6. Run `./tools/brainstorms/index.sh` to refresh the brainstorms INDEX.md
+7. Show in chat: TLDR + file path only. Offer "show full artifact? (y/n)"
 
 ### Artifact Template
 
@@ -196,9 +197,34 @@ After end review:
 | User "I don't know" | Confusion → rephrase. Indifference → skip. Fatigue → offer end |
 | Final verification skipped | Root cause of incomplete artifacts. Every all-domains-exhausted state MUST trigger audit |
 
+## ADR Integration
+
+When the session ends with concrete decisions (artifact has >=1 [accepted] entry):
+
+1. After artifact dump + end review + OpenSpec offer, ask:
+   "Want to create ADR drafts from the decisions?"
+
+2. On yes → for each accepted decision:
+   a. Propose an ADR title based on the decision
+   b. Wait for explicit user approval per ADR
+   c. On approval → run `./tools/adr/new.sh "<title>"` (creates as **proposed**)
+   d. Fill the ADR template sections using the brainstorm's full context:
+      - **Context and Problem Statement** → from the brainstorm topic + discussion
+      - **Decision Drivers** → from the framework's exploration
+      - **Considered Options** → from the options discussed
+      - **Decision Outcome** → from the captured decision
+      - **Consequences** → from the trade-off analysis
+      - **More Information** → cross-reference other ADRs from this brainstorm
+   e. Check that new.sh succeeded (exit code 0). If it failed, notify the user and suggest running it manually.
+   f. Ask: "Ready to accept this ADR?" On yes → run `./tools/adr/status.sh <NNN> accepted`
+   g. Notify user to commit: `docs(adr): add ADR for <title>`
+
+3. If no accepted decisions exist → skip silently (no prompt).
+
 ## Termination
 
 - Any variant: "end the brainstorm", "stop brainstorm", "finish brainstorm", "end brainstorming"
 - Run final verification first if not already done
 - Final artifact dump + optional end review + OpenSpec offer
+- Run ADR Integration (see above)
 - Reset session state (no active session flag)
