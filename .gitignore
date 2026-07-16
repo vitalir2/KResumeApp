@@ -16,6 +16,10 @@ tools/linter/detekt/detekt-cli.jar
 .ai/tmp/
 .kotlin/
 
+# references external project tools
+.opencode/skills/daily-tg-post/
+.opencode/skills/edit-tg-post/
+
 # OS
 *.swp
 __pycache__/
