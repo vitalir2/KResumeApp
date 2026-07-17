@@ -15,6 +15,7 @@ tools/linter/detekt/detekt-cli.jar
 # Temp files
 .ai/tmp/
 .kotlin/
+.obsidian
 
 # references external project tools
 .opencode/skills/daily-tg-post/

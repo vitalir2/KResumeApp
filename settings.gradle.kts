@@ -17,5 +17,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "kresume"
 
+// Main app
+include(":desktop")
+
+// Linters
 include(":tools:linter:konsist")
 project(":tools:linter:konsist").projectDir = rootDir.resolve("tools/linter/konsist")
