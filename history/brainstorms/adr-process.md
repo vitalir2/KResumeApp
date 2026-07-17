@@ -1,6 +1,9 @@
 # ADR Process for KMP Project
+
 **Framework:** 5W1H
+
 **Date:** 2026-07-16
+
 **Duration:** 40+ turns
 
 ## TLDR

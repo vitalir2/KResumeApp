@@ -1,6 +1,7 @@
 # Initialize ADR Process
 
 **Status:** implemented
+
 **Date:** 2026-07-16 (updated 2026-07-16 — full process finalized)
 
 ## Context and Problem Statement

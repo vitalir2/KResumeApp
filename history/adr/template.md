@@ -1,6 +1,7 @@
 # [title]
 
 **Status:** proposed | accepted | implemented | deprecated
+
 **Date:** YYYY-MM-DD
 
 <!--

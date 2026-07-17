@@ -123,8 +123,11 @@ On "end the brainstorm" (or any variant):
 
 ````markdown
 # <Topic>
+
 **Framework:** <name> (shifted from <old> if applicable)
+
 **Date:** <YYYY-MM-DD>
+
 **Duration:** <N> turns
 
 ## TLDR
