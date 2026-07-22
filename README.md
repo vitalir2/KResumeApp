@@ -55,12 +55,16 @@ side-by-side comparison chart with metric selector.
 
 | Engine | ~Cold start | Hot P50 |
 |--------|------------|---------|
-| jsr223 | 2000ms* | ~110ms |
-| kctfork | 1400ms* | ~110ms |
-| raw | **100ms** | **~90ms** |
+| jsr223 | ~2000ms* | ~110ms |
+| kctfork | ~1400ms* | ~110ms |
+| raw | ~1600ms* | ~100ms |
 
 \* First JVM compilation includes JIT warmup. Subsequent compiles
-are stable within 100-200ms.
+are stable within 100-200ms across all three.
+
+The **raw** backend (`kotlin-compiler-embeddable`) is the default —
+performance is comparable to kctfork but requires **one fewer
+third-party dependency** (`dev.zacsweers.kctfork`).
 
 ## Getting Started
 
