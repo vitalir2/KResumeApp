@@ -14,3 +14,4 @@ synced_at: sha256:b956563c9322613ab14b69a604690feff0addc575a62aebcdb99faf0f900d0
 | `tools/adr/` | ADR scripts: new.sh, status.sh, index.sh |
 | `history/adr/README.md` | ADR process, template, workflow |
 | `history/brainstorms/README.md` | Brainstorm archive index |
+| `ats-compatibility.md` | ATS parser compatibility — rules, checks, manual test |

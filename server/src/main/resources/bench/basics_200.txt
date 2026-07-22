@@ -1,0 +1,199 @@
+resume {
+    basics {
+        name = "Sarah Mitchell"
+        title = "Principal Engineer"
+        email = "sarah.mitchell@email.com"
+        phone = "+1-555-0202"
+        location = "Seattle, WA"
+        summary = "Distributed systems specialist with 12 years of experience designing fault-tolerant infrastructure, leading platform engineering teams, and driving adoption of cloud-native architectures across large organizations."
+    }
+    work {
+        company = "CloudScale Inc."
+        position = "Principal Engineer"
+        startDate = "2022-01"
+        endDate = "2024-07"
+        description = "Led architecture for multi-region Kubernetes deployment supporting 2M+ daily active users across North America and Europe."
+        highlights = listOf("Designed service mesh reducing inter-service latency by 35% and improving observability", "Established SRE practices achieving 99.99% platform uptime over 18 consecutive months")
+    }
+    work {
+        company = "CloudScale Inc."
+        position = "Staff Engineer"
+        startDate = "2020-02"
+        endDate = "2021-12"
+        description = "Drove adoption of event-driven microservices architecture across 15 engineering teams, enabling independent deployability and reducing cross-team dependencies."
+        highlights = listOf("Architected event sourcing system processing 500K events per minute with guaranteed delivery", "Reduced incident response time by 70% through comprehensive observability and automated remediation platform")
+    }
+    work {
+        company = "NexGen Robotics"
+        position = "Senior Backend Engineer"
+        startDate = "2018-04"
+        endDate = "2020-01"
+        description = "Built real-time control plane for autonomous robot fleet management system coordinating 200+ robots across warehouse environments."
+        highlights = listOf("Implemented WebSocket-based command protocol achieving 5ms end-to-end latency", "Designed geospatial indexing enabling real-time tracking of 1000+ simultaneous robot positions", "Created simulation framework reducing field testing costs by 45% through hardware-in-the-loop testing")
+    }
+    work {
+        company = "FinEdge Technologies"
+        position = "Backend Engineer"
+        startDate = "2015-06"
+        endDate = "2018-03"
+        description = "Developed high-throughput trade execution engine processing 50K transactions per second for institutional trading platform."
+        highlights = listOf("Optimized order matching algorithm reducing execution time to 2 microseconds", "Designed audit logging system fully compliant with SEC and FINRA regulatory requirements", "Built circuit breaker pattern preventing cascade failures during periods of extreme market volatility")
+    }
+    work {
+        company = "HealthBridge"
+        position = "Software Engineer"
+        startDate = "2013-09"
+        endDate = "2015-05"
+        description = "Built HIPAA-compliant patient data exchange platform connecting 50+ hospital systems and 10K healthcare providers."
+        highlights = listOf("Implemented FHIR API standard enabling seamless interoperability with external healthcare providers", "Designed encryption layer handling PHI data with zero compliance incidents over entire tenure")
+    }
+    work {
+        company = "Quantum Labs"
+        position = "Junior Engineer"
+        startDate = "2011-01"
+        endDate = "2013-08"
+        description = "Developed scientific simulation tools for quantum computing research team exploring superconducting qubit architectures."
+    }
+    work {
+        company = "Edge Computing Corp"
+        position = "Platform Engineer"
+        startDate = "2009-05"
+        endDate = "2010-12"
+        description = "Built embedded Linux distribution for IoT edge devices deployed across 50+ smart manufacturing facilities."
+    }
+    work {
+        company = "Pixel Media Group"
+        position = "Web Developer"
+        startDate = "2007-06"
+        endDate = "2009-04"
+        description = "Developed dynamic websites and content management solutions for media clients with combined monthly audience of 5M visitors."
+        highlights = listOf("Built custom CMS reducing content publishing time by 80% through workflow automation", "Implemented CDN caching strategy improving global page load speeds by 60%")
+    }
+    work {
+        company = "SecureNet Systems"
+        position = "Security Engineer"
+        startDate = "2005-11"
+        endDate = "2007-05"
+        description = "Performed penetration testing and implemented security hardening for enterprise networks serving financial services and healthcare clients."
+    }
+    work {
+        company = "DataVault Corp"
+        position = "Database Administrator"
+        startDate = "2004-01"
+        endDate = "2005-10"
+        description = "Managed Oracle and PostgreSQL clusters for financial services company processing 1M+ daily transactions."
+        highlights = listOf("Migrated 5TB data warehouse across data centers with zero application downtime", "Implemented automated backup and recovery strategy reducing RPO from 4 hours to 15 minutes")
+    }
+    work {
+        company = "CityGrid Software"
+        position = "Full Stack Developer"
+        startDate = "2020-06"
+        endDate = "2023-01"
+        description = "Built civic engagement platform connecting 500K residents with local government services, permitting, and community events."
+    }
+    work {
+        company = "GreenEnergy Analytics"
+        position = "Data Engineer"
+        startDate = "2017-03"
+        endDate = "2020-05"
+        description = "Designed data pipelines for solar panel performance monitoring across 10K residential and commercial installations."
+        highlights = listOf("Built real-time anomaly detection dashboard reducing response time from hours to 30 seconds", "Optimized time-series database schema reducing storage costs by 55% while maintaining query performance")
+    }
+    work {
+        company = "AeroStack"
+        position = "DevOps Engineer"
+        startDate = "2019-08"
+        endDate = "2022-11"
+        description = "Managed Kubernetes clusters across 3 cloud providers for aerospace simulation platform serving engineering teams."
+        highlights = listOf("Implemented GitOps workflow reducing deployment failures by 90% through automated validation gates", "Designed auto-scaling policies based on workload patterns saving $120K annually in cloud costs")
+    }
+    work {
+        company = "BioSight Diagnostics"
+        position = "Machine Learning Engineer"
+        startDate = "2016-01"
+        endDate = "2019-06"
+        description = "Developed ML models for medical image analysis detecting early-stage biomarkers for oncology screening applications."
+    }
+    work {
+        company = "LogiTrans Solutions"
+        position = "Systems Architect"
+        startDate = "2014-05"
+        endDate = "2016-12"
+        description = "Designed real-time logistics tracking platform for fleet of 5000+ delivery vehicles serving e-commerce and food delivery markets."
+        highlights = listOf("Built route optimization engine using constraint programming reducing fuel costs by 18%", "Implemented geofencing system processing 10K location updates per minute with sub-meter accuracy", "Designed microservices architecture handling 500K daily shipment tracking requests with 99.9% uptime")
+    }
+    work {
+        company = "Meridian Software"
+        position = "Software Engineer"
+        startDate = "2002-06"
+        endDate = "2004-01"
+        description = "Developed enterprise resource planning modules for manufacturing industry covering inventory, supply chain, and order management."
+    }
+    work {
+        company = "BluePeak Networks"
+        position = "Network Administrator"
+        startDate = "2001-01"
+        endDate = "2002-05"
+        description = "Administered network infrastructure for regional ISP serving 50K residential and business customers across 3 states."
+        highlights = listOf("Designed redundant network topology reducing customer outage frequency by 75%", "Built automated network monitoring system detecting and alerting on 95% of issues before customer impact")
+    }
+    work {
+        company = "Synergy Consulting"
+        position = "Technology Analyst"
+        startDate = "1999-08"
+        endDate = "2000-12"
+        description = "Provided technology consulting services to mid-market companies evaluating enterprise software and infrastructure modernization strategies."
+    }
+    work {
+        company = "NorthPole Software"
+        position = "Junior Java Developer"
+        startDate = "1997-05"
+        endDate = "1999-07"
+        description = "Developed enterprise Java applications for supply chain management systems used by logistics companies."
+        highlights = listOf("Built inventory management module adopted by 3 Fortune 500 clients", "Designed JDBC-based data access layer reducing query execution time by 50%", "Created unit testing framework adopted across 5 development teams")
+    }
+    work {
+        company = "RedCliff Technologies"
+        position = "Systems Programmer"
+        startDate = "1995-01"
+        endDate = "1997-04"
+        description = "Developed system-level software for UNIX-based server appliances used in telecommunications infrastructure."
+    }
+    work {
+        company = "BayView Financial"
+        position = "Senior Developer"
+        startDate = "1998-06"
+        endDate = "2001-02"
+        description = "Led development of mortgage origination system for regional bank processing 10K loan applications annually."
+        highlights = listOf("Designed workflow engine automating loan approval process reducing processing time by 60%", "Built document management system handling 500K digitized loan documents", "Implemented credit scoring integration reducing manual underwriting effort by 40%")
+    }
+    work {
+        company = "CoreNet Systems"
+        position = "Network Operations Engineer"
+        startDate = "1994-03"
+        endDate = "1995-06"
+        description = "Managed network operations for regional ISP with 25K dial-up and early DSL customers."
+        highlights = listOf("Built automated modem bank monitoring system reducing customer downtime by 45%", "Designed network capacity planning model supporting 200% subscriber growth")
+    }
+    work {
+        company = "Atlas Educational Software"
+        position = "Instructional Software Developer"
+        startDate = "1993-01"
+        endDate = "1994-02"
+        description = "Developed interactive educational software for K-12 science curriculum using early multimedia authoring tools."
+    }
+    work {
+        company = "StoneBridge Innovations"
+        position = "Technical Support Engineer"
+        startDate = "1992-03"
+        endDate = "1993-06"
+        description = "Provided second-line technical support for enterprise accounting software serving mid-market businesses."
+    }
+    work {
+        company = "Prairie Computing"
+        position = "Junior Programmer"
+        startDate = "1991-06"
+        endDate = "1992-07"
+        description = "Wrote data processing programs in COBOL for legacy mainframe systems handling insurance claims processing."
+    }
+}

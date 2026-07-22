@@ -20,6 +20,9 @@ rootProject.name = "kresume"
 // Main app
 include(":desktop")
 
+// PoC Web Server
+include(":server")
+
 // Linters
 include(":tools:linter:konsist")
 project(":tools:linter:konsist").projectDir = rootDir.resolve("tools/linter/konsist")

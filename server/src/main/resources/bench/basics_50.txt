@@ -1,0 +1,49 @@
+resume {
+    basics {
+        name = "Alex Chen"
+        title = "Senior Software Engineer"
+        email = "alex.chen@email.com"
+        phone = "+1-555-0101"
+        location = "San Francisco, CA"
+        summary = "Experienced full-stack engineer with 8 years of experience building scalable web applications, leading distributed engineering teams, and driving technical strategy across multiple product verticals in fast-paced startup and enterprise environments."
+    }
+    work {
+        company = "TechCorp Inc."
+        position = "Senior Software Engineer"
+        startDate = "2021-03"
+        endDate = "2024-07"
+        description = "Led backend microservices migration from monolithic architecture reducing latency by 40% and infrastructure costs by 25%."
+        highlights = listOf("Designed event-driven architecture handling 10K concurrent requests per second with sub-50ms latency", "Mentored 4 junior engineers through structured code review and pair programming program", "Reduced deployment time by 60% implementing comprehensive CI/CD pipelines with canary releases")
+    }
+    work {
+        company = "DataFlow Systems"
+        position = "Software Engineer"
+        startDate = "2018-06"
+        endDate = "2021-02"
+        description = "Built real-time data pipeline processing 5TB of telemetry data daily using Apache Kafka and Spark streaming."
+        highlights = listOf("Implemented Kafka-based streaming architecture with exactly-once processing semantics", "Optimized Spark jobs reducing compute costs by 30% while maintaining throughput", "Designed fault-tolerant ingestion system achieving 99.9% uptime across 3 availability zones")
+    }
+    work {
+        company = "StartupXYZ"
+        position = "Junior Software Developer"
+        startDate = "2016-01"
+        endDate = "2018-05"
+        description = "Developed customer-facing features for B2B SaaS platform serving 200+ enterprise clients across healthcare and finance sectors."
+        highlights = listOf("Built REST API serving 50K+ daily requests with consistent sub-100ms response times", "Introduced automated testing framework increasing code coverage from 40% to 85%")
+    }
+    work {
+        company = "QuantumLeap Analytics"
+        position = "Data Engineering Intern"
+        startDate = "2015-06"
+        endDate = "2015-12"
+        description = "Assisted in building ETL pipelines for customer analytics platform serving marketing teams with real-time campaign performance tracking."
+    }
+    work {
+        company = "NexGen Systems"
+        position = "Associate Software Engineer"
+        startDate = "2014-09"
+        endDate = "2015-05"
+        description = "Developed internal tools and automation scripts for infrastructure monitoring and deployment management."
+        highlights = listOf("Built automated deployment pipeline reducing release time from 4 hours to 20 minutes", "Created monitoring dashboard tracking 500+ server metrics with real-time alerting")
+    }
+}

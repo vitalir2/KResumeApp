@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KResume PoC</title>
+<link rel="stylesheet" href="/static/codemirror/lib/codemirror.css">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="toolbar">
+  <span class="title">KResume PoC</span>
+  <a href="/static/bench.html" class="bench-link">Benchmark</a>
+  <button class="dl-btn" id="dlBtn" onclick="downloadPdf()">PDF</button>
+  <span class="status">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusText">Ready</span>
+  </span>
+</div>
+<div class="split-pane">
+  <div class="editor-pane">
+    <textarea id="editor">
+resume {
+    basics {
+        name = "Jane Doe"
+        title = "Software Engineer"
+        email = "jane@example.com"
+        location = "San Francisco, CA"
+        summary = "Experienced software engineer with a passion for building great products."
+    }
+    work {
+        company = "Tech Corp"
+        position = "Senior Developer"
+        startDate = "2020-01"
+        description = "Led backend team building microservices"
+    }
+    work {
+        company = "Startup Inc"
+        position = "Full Stack Developer"
+        startDate = "2017-03"
+        endDate = "2019-12"
+        description = "Built customer-facing web application"
+    }
+}
+    </textarea>
+  </div>
+  <div class="preview-pane">
+    <iframe id="preview"></iframe>
+  </div>
+</div>
+<script src="/static/codemirror/lib/codemirror.js"></script>
+<script src="/static/codemirror/mode/clike/clike.js"></script>
+<script src="/static/app.js" defer></script>
+</body>
+</html>
