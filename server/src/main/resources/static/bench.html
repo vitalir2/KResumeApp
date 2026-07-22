@@ -113,6 +113,13 @@ tr:hover td { background: #f0f4f8; }
     <option value="heapDeltaKb">Heap Δ (KB)</option>
     <option value="gcPauseMs">GC (ms)</option>
   </select>
+  <select id="sizeSelect" onchange="onSizeChange()">
+    <option value="all">All sizes</option>
+    <option value="50">50 lines</option>
+    <option value="200">200 lines</option>
+    <option value="500">500 lines</option>
+    <option value="2000">2000 lines</option>
+  </select>
   <br>
   <canvas id="chart" width="700" height="350"></canvas>
 </div>
@@ -180,152 +187,155 @@ function getMetricLabel(key) {
 
 function onMetricChange() {
   if (!benchData) return;
-  var metricKey = document.getElementById("metricSelect").value;
-  drawChart(benchData, metricKey);
+  drawChart(benchData, document.getElementById("metricSelect").value);
+}
+function onSizeChange() {
+  if (!benchData) return;
+  drawChart(benchData, document.getElementById("metricSelect").value);
+}
+
+function getVal(row, key) {
+  if (!row) return null;
+  if (["p50","p95","p99","mean","stdDev"].indexOf(key) !== -1) return row.hot ? row.hot[key] : null;
+  return row[key];
 }
 
 function drawChart(data, metricKey) {
   var ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, 700, 350);
 
-  var sizes = [50, 200, 500, 2000];
   var engines = ["jsr223", "kctfork", "raw"];
   var colors = { jsr223: "#1565c0", kctfork: "#c62828", raw: "#2e7d32" };
-  var pad = { top: 40, right: 120, bottom: 50, left: 60 };
+  var pad = { top: 40, right: 30, bottom: 50, left: 60 };
   var plotW = 700 - pad.left - pad.right;
   var plotH = 350 - pad.top - pad.bottom;
 
-  var series = {};
+  var selectedSize = document.getElementById("sizeSelect").value;
+
+  // Gather values
   var allValues = [];
-  engines.forEach(function (engine) {
-    var vals = [];
-    sizes.forEach(function (size) {
-      var row = data.find(function (r) { return r.engine === engine && r.size === size; });
-      var val = null;
-      if (row) {
-        if (["p50", "p95", "p99", "mean", "stdDev"].indexOf(metricKey) !== -1) {
-          val = row.hot ? row.hot[metricKey] : null;
-        } else {
-          val = row[metricKey];
-        }
-      }
-      vals.push(val);
-      if (val != null) allValues.push(val);
+  var series = {};
+
+  if (selectedSize === "all") {
+    // Line chart across sizes
+    var sizes = [50, 200, 500, 2000];
+    engines.forEach(function (engine) {
+      var vals = sizes.map(function (s) { var v = getVal(data.find(function(r){return r.engine===engine&&r.size===s}), metricKey); if (v!=null) allValues.push(v); return v; });
+      series[engine] = vals;
     });
-    series[engine] = vals;
-  });
 
-  if (allValues.length === 0) {
-    ctx.fillStyle = "#999";
-    ctx.font = "14px sans-serif";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("No data for selected metric", 350, 175);
-    return;
+    if (allValues.length === 0) { noData(ctx); return; }
+    var scale = computeScale(Math.min.apply(null,allValues), Math.max.apply(null,allValues), 5);
+    drawAxes(ctx, pad, plotW, plotH, scale);
+
+    // X labels
+    ctx.fillStyle = "#666"; ctx.font = "11px sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "top";
+    sizes.forEach(function(s,i){ ctx.fillText(s, pad.left+(i/(sizes.length-1))*plotW, pad.top+plotH+8); });
+    ctx.fillText("Size (lines)", pad.left+plotW/2, 350-18);
+
+    // Lines
+    engines.forEach(function (engine) {
+      var vals = series[engine];
+      var c = colors[engine];
+      ctx.strokeStyle = c; ctx.fillStyle = c; ctx.lineWidth = 2;
+      ctx.beginPath();
+      var started = false;
+      vals.forEach(function (v,i) {
+        if (v==null) return;
+        var px = pad.left+(i/(sizes.length-1))*plotW, py = pad.top+plotH-((v-scale.min)/(scale.max-scale.min))*plotH;
+        if (!started) { ctx.moveTo(px,py); started=true; } else ctx.lineTo(px,py);
+      });
+      ctx.stroke();
+      vals.forEach(function (v,i) {
+        if (v==null) return;
+        var px = pad.left+(i/(sizes.length-1))*plotW, py = pad.top+plotH-((v-scale.min)/(scale.max-scale.min))*plotH;
+        ctx.beginPath(); ctx.arc(px,py,3,0,Math.PI*2); ctx.fill();
+      });
+    });
+    drawLegend(ctx, pad, plotW, engines, colors);
+  } else {
+    // Bar chart for single size
+    var size = parseInt(selectedSize);
+    engines.forEach(function (engine) {
+      var v = getVal(data.find(function(r){return r.engine===engine&&r.size===size}), metricKey);
+      if (v != null) allValues.push(v);
+      series[engine] = v;
+    });
+
+    if (allValues.length === 0) { noData(ctx); return; }
+    var minVal = Math.min.apply(null,allValues), maxVal = Math.max.apply(null,allValues);
+    if (minVal > 0) minVal = 0; // bars start at 0
+    var scale = computeScale(minVal, maxVal, 5);
+    drawAxes(ctx, pad, plotW, plotH, scale);
+
+    // Bars
+    var barW = Math.min(60, (plotW / engines.length) * 0.6);
+    var gap = (plotW - barW * engines.length) / (engines.length + 1);
+    engines.forEach(function (engine, i) {
+      var v = series[engine];
+      if (v == null) return;
+      var bx = pad.left + gap + i * (barW + gap);
+      var by = pad.top + plotH - ((v - scale.min) / (scale.max - scale.min)) * plotH;
+      var bh = ((v - scale.min) / (scale.max - scale.min)) * plotH;
+      ctx.fillStyle = colors[engine];
+      ctx.fillRect(bx, by, barW, bh);
+
+      // Value label on top
+      ctx.fillStyle = "#333"; ctx.font = "11px sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "bottom";
+      var decimals = v === Math.floor(v) ? 0 : 1;
+      ctx.fillText(Number(v).toFixed(decimals), bx + barW/2, by - 3);
+    });
+
+    // Engine labels below X axis
+    ctx.fillStyle = "#666"; ctx.font = "11px sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "top";
+    engines.forEach(function (engine, i) {
+      var bx = pad.left + gap + i * (barW + gap);
+      ctx.fillStyle = colors[engine];
+      ctx.fillRect(bx + barW/2 - 5, pad.top + plotH + 8, 10, 10);
+      ctx.fillStyle = "#333";
+      ctx.fillText(engine, bx + barW/2, pad.top + plotH + 22);
+    });
   }
+}
 
-  var minVal = Math.min.apply(null, allValues);
-  var maxVal = Math.max.apply(null, allValues);
-  var scale = computeScale(minVal, maxVal, 5);
+function noData(ctx) {
+  ctx.fillStyle = "#999"; ctx.font = "14px sans-serif"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillText("No data for selected metric", 350, 175);
+}
 
-  ctx.strokeStyle = "#e0e0e0";
-  ctx.lineWidth = 1;
-  ctx.setLineDash([4, 4]);
+function drawAxes(ctx, pad, plotW, plotH, scale) {
   var tickCount = Math.round((scale.max - scale.min) / scale.step) + 1;
+  ctx.strokeStyle = "#e0e0e0"; ctx.lineWidth = 1; ctx.setLineDash([4,4]);
   for (var i = 0; i < tickCount; i++) {
     var yVal = scale.min + i * scale.step;
     var py = pad.top + plotH - ((yVal - scale.min) / (scale.max - scale.min)) * plotH;
-    ctx.beginPath();
-    ctx.moveTo(pad.left, py);
-    ctx.lineTo(pad.left + plotW, py);
-    ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(pad.left, py); ctx.lineTo(pad.left + plotW, py); ctx.stroke();
   }
   ctx.setLineDash([]);
 
-  ctx.strokeStyle = "#333";
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(pad.left, pad.top);
-  ctx.lineTo(pad.left, pad.top + plotH);
-  ctx.lineTo(pad.left + plotW, pad.top + plotH);
-  ctx.stroke();
+  ctx.strokeStyle = "#333"; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(pad.left, pad.top); ctx.lineTo(pad.left, pad.top + plotH); ctx.lineTo(pad.left + plotW, pad.top + plotH); ctx.stroke();
 
-  ctx.fillStyle = "#666";
-  ctx.font = "11px sans-serif";
-  ctx.textAlign = "right";
-  ctx.textBaseline = "middle";
+  ctx.fillStyle = "#666"; ctx.font = "11px sans-serif"; ctx.textAlign = "right"; ctx.textBaseline = "middle";
   for (var i = 0; i < tickCount; i++) {
     var yVal = scale.min + i * scale.step;
     var py = pad.top + plotH - ((yVal - scale.min) / (scale.max - scale.min)) * plotH;
-    var decimals = scale.step < 1 ? 1 : 0;
-    ctx.fillText(Number(yVal).toFixed(decimals), pad.left - 8, py);
+    ctx.fillText(Number(yVal).toFixed(scale.step < 1 ? 1 : 0), pad.left - 8, py);
   }
 
-  ctx.save();
-  ctx.translate(18, pad.top + plotH / 2);
-  ctx.rotate(-Math.PI / 2);
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillStyle = "#666";
-  ctx.fillText(getMetricLabel(metricKey), 0, 0);
+  ctx.save(); ctx.translate(18, pad.top + plotH / 2); ctx.rotate(-Math.PI / 2);
+  ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillStyle = "#666";
+  ctx.fillText(document.getElementById("metricSelect").options[document.getElementById("metricSelect").selectedIndex].text, 0, 0);
   ctx.restore();
+}
 
-  ctx.fillStyle = "#666";
-  ctx.font = "11px sans-serif";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "top";
-  sizes.forEach(function (size, i) {
-    var px = pad.left + (i / (sizes.length - 1)) * plotW;
-    ctx.fillText(size, px, pad.top + plotH + 8);
-  });
-
-  ctx.textAlign = "center";
-  ctx.textBaseline = "top";
-  ctx.fillText("Size (lines)", pad.left + plotW / 2, 350 - 18);
-
-  engines.forEach(function (engine) {
-    var vals = series[engine];
-    var color = colors[engine];
-    ctx.strokeStyle = color;
-    ctx.fillStyle = color;
-    ctx.lineWidth = 2;
-
-    ctx.beginPath();
-    var hasStarted = false;
-    vals.forEach(function (val, i) {
-      if (val == null) return;
-      var px = pad.left + (i / (sizes.length - 1)) * plotW;
-      var py = pad.top + plotH - ((val - scale.min) / (scale.max - scale.min)) * plotH;
-      if (!hasStarted) {
-        ctx.moveTo(px, py);
-        hasStarted = true;
-      } else {
-        ctx.lineTo(px, py);
-      }
-    });
-    ctx.stroke();
-
-    vals.forEach(function (val, i) {
-      if (val == null) return;
-      var px = pad.left + (i / (sizes.length - 1)) * plotW;
-      var py = pad.top + plotH - ((val - scale.min) / (scale.max - scale.min)) * plotH;
-      ctx.beginPath();
-      ctx.arc(px, py, 3, 0, Math.PI * 2);
-      ctx.fill();
-    });
-  });
-
-  var legendX = pad.left + plotW - 10;
-  var legendY = pad.top + 10;
-  ctx.textAlign = "right";
-  ctx.textBaseline = "middle";
-  ctx.font = "12px sans-serif";
-  engines.forEach(function (engine, i) {
-    var y = legendY + i * 18;
-    ctx.fillStyle = colors[engine];
-    ctx.fillRect(legendX - 60, y - 5, 12, 10);
-    ctx.fillStyle = "#333";
-    ctx.fillText(engine, legendX, y);
+function drawLegend(ctx, pad, plotW, engines, colors) {
+  var lx = pad.left + plotW - 10, ly = pad.top + 10;
+  ctx.textAlign = "right"; ctx.textBaseline = "middle"; ctx.font = "12px sans-serif";
+  engines.forEach(function (e, i) {
+    var y = ly + i * 18;
+    ctx.fillStyle = colors[e]; ctx.fillRect(lx - 60, y - 5, 12, 10);
+    ctx.fillStyle = "#333"; ctx.fillText(e, lx, y);
   });
 }
 
