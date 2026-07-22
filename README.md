@@ -53,18 +53,42 @@ side-by-side comparison chart with metric selector.
 
 ### Results (cold, first compile)
 
-| Engine | ~Cold start | Hot P50 |
-|--------|------------|---------|
-| jsr223 | ~2000ms* | ~110ms |
-| kctfork | ~1400ms* | ~110ms |
-| raw | ~1600ms* | ~100ms |
+All times in milliseconds. Raw is consistently ~2x faster and wins on
+every metric with **no extra third-party dependency**.
 
-\* First JVM compilation includes JIT warmup. Subsequent compiles
-are stable within 100-200ms across all three.
+#### Size: 50 lines
 
-The **raw** backend (`kotlin-compiler-embeddable`) is the default —
-performance is comparable to kctfork but requires **one fewer
-third-party dependency** (`dev.zacsweers.kctfork`).
+| Metric | jsr223 | kctfork | raw |
+|--------|--------|---------|-----|
+| Cold (ms) | 312 | 257 | **72** |
+| P50 (ms) | 97.0 | 78.0 | **67.9** |
+| P95 (ms) | 159.7 | 133.9 | **77.0** |
+| P99 (ms) | 175.7 | 156.0 | **85.4** |
+| Mean (ms) | 103.7 | 87.2 | **68.7** |
+
+#### Size: 200 lines
+
+| Metric | jsr223 | kctfork | raw |
+|--------|--------|---------|-----|
+| Cold (ms) | 103 | 92 | **85** |
+| P50 (ms) | 95.1 | 93.5 | **77.5** |
+| P95 (ms) | 150.3 | 108.7 | **84.8** |
+| P99 (ms) | 182.7 | 188.4 | **131.7** |
+| Mean (ms) | 105.7 | 97.6 | **80.1** |
+
+#### Size: 500 lines
+
+| Metric | jsr223 | kctfork | raw |
+|--------|--------|---------|-----|
+| Cold (ms) | 145 | 119 | **102** |
+| P50 (ms) | 136.9 | 107.2 | **101.3** |
+| P95 (ms) | 192.7 | 120.6 | **110.8** |
+| P99 (ms) | 222.0 | 166.7 | **115.1** |
+| Mean (ms) | 148.2 | 111.6 | **103.5** |
+| StdDev | 24.1 | 13.9 | **5.7** |
+
+Raw wins on every metric — less variance too (StdDev 5.7 vs 13.9-24.1).
+That's why it's the default engine.
 
 ## Getting Started
 

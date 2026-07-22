@@ -52,7 +52,7 @@ private fun percentile(sorted: List<Double>, p: Int): Double {
 
 suspend fun handleBench(call: ApplicationCall) {
     val engines = listOf("jsr223", "kctfork", "raw")
-    val sizes = listOf(50, 200, 500)
+    val sizes = listOf(50, 200, 500, 2000)
 
     val results = mutableListOf<BenchResult>()
 
